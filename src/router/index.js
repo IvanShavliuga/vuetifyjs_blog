@@ -30,6 +30,7 @@ export default new Router({
     {
       path: '/page/:id',
       name: 'Pages',
+      props: true,
       component: Pages
     },
     {

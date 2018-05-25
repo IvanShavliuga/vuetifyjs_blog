@@ -29,29 +29,15 @@
 </template>
 <script>
   export default {
-    data () {
-      return {
-        items: [
-           {
-          src: 'https://vuetifyjs.com/static/doc-images/carousel/squirrel.jpg', id: '1'
-        },
-        {
-          src: 'https://vuetifyjs.com/static/doc-images/carousel/sky.jpg', id: 'sdgsdsd'
-        },
-        {
-          src: 'https://vuetifyjs.com/static/doc-images/carousel/bird.jpg', id: 'rerghafdh'
-        },
-        {
-          src: 'https://vuetifyjs.com/static/doc-images/carousel/planet.jpg', id: 'xhkjlkjkj'
-        }
-        ]
+   computed: {
+      items() {
+        return this.$store.getters.featurePages
       }
-    },
+    },  
     methods: {
-    	onLoadPage (id){
-    		this.$router.push("/page/"+id)
-
-    	}
+      onLoadPage (id) {
+        this.$router.push('/page/' + id)
+      }
 
     }
   }

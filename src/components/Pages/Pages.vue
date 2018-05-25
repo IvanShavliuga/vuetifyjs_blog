@@ -4,12 +4,13 @@
 			<v-flex xs12>
 				<v-card>
 					<v-card-title>
-						<h4 class="primary--text">Image one</h4>
+						<h4 class="primary--text">{{items.title}}</h4>
 					</v-card-title>
-					<v-card-media src="https://vuetifyjs.com/static/doc-images/carousel/squirrel.jpg" height="400px">
+					<v-card-media 
+					:src="items.src" height="400px">
 					</v-card-media>
 					<v-card-text>
-						<div class="info--text">Located two hours south of Sydney</div>
+						<div class="info--text">{{items.date}}Located two hours south of Sydney</div>
 						<div>Located two hours south of Sydney in the
 							Southern Highlands of New South Wales</div>
 					</v-card-text>
@@ -24,3 +25,15 @@
 		</v-layout>	
 	</v-container>
 </template>
+
+<script>
+	export default{
+		props: ['id'],
+		 computed: {
+      items() {
+        return this.$store.getters.loaderPage(this.id)
+      }
+    }
+
+	}
+</script>
