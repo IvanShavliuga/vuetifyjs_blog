@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import {store} from './store/index.js'
+import * as firebase from 'firebase'
+import DateFilter from './filters/date.js'
 import {
   Vuetify,
   VApp,
@@ -54,6 +56,7 @@ Vue.use(Vuetify, {
 })
 
 Vue.config.productionTip = false
+Vue.filter('date', DateFilter)
 
 /* eslint-disable no-new */
 new Vue({
@@ -61,5 +64,16 @@ new Vue({
   router,
   store,
   components: { App },
+  created(){
+    firebase.initializeApp({
+      apiKey: 'AIzaSyAH-2nTWol3i4W_JOV5oozm8ReKPBxDYf8',
+    authDomain: 'vuejs-c67a5.firebaseapp.com',
+    databaseURL: 'https://vuejs-c67a5.firebaseio.com',
+    projectId: 'vuejs-c67a5',
+    storageBucket: ''
+
+    })
+
+  },
   template: '<App/>'
 })

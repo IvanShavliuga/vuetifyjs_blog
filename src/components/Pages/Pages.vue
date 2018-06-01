@@ -10,9 +10,8 @@
 					:src="items.src" height="400px">
 					</v-card-media>
 					<v-card-text>
-						<div class="info--text">{{items.date}}Located two hours south of Sydney</div>
-						<div>Located two hours south of Sydney in the
-							Southern Highlands of New South Wales</div>
+						<div class="info--text">{{items.date | date}}-{{items.location}}</div>
+						<div>{{items.description}}</div>
 					</v-card-text>
 					<v-card-actions  class="text-xs-center ">
           	<v-btn flat color="primary" to="" >

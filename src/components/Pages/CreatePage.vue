@@ -71,12 +71,12 @@
 		  		</v-layout>
 		  		<v-layout row class="mb-3">
 		  			<v-flex xs12 sm6 offset-sm3>
-      				<v-date-picker v-model="picker" color="green lighten-1"></v-date-picker>
+      				<v-date-picker v-model="date" color="green lighten-1" header-color="primary"></v-date-picker>
     				</v-flex> 
 		  		</v-layout>
 		  		<v-layout row>
-		  			<v-flex xs12 sm6 offset-sm3>
-      				<v-time-picker v-model="picker" color="green lighten-1"></v-time-picker>
+		  			<v-flex  >
+      				<v-time-picker v-model="time" color="green lighten-1" format="24hr" header-color="primary"></v-time-picker>
     				</v-flex> 
 		  		</v-layout>
 
@@ -89,7 +89,6 @@
 		  		  	>
 		  		  	Create
 		  		  </v-btn>
-		  		    
 		  		  </v-flex>
 		  		</v-layout>
 
@@ -104,14 +103,15 @@
 
 <script>
 export default{
-		data() {
-			return {
+		data: () => ({
 				title: '',
 				location: '',
 				imageUrl: '',
-				description: ''
-			}
-		},
+				description: '',
+				date: null,
+				time: null
+			
+		}),
 		computed: {
 			formIsValid () {
 				return this.title !== '' && 
@@ -119,6 +119,20 @@ export default{
 				this.imageUrl !== '' && 
 				this.description !== '' 
 
+			},
+			subDate(){
+				const date = new Date(this.date)
+				if(typeof this.time === 'string'){
+					let hours = this.time.match(/^(\d+)/)[1]
+					const minutes = this.time.match(/:(\d+)/)[1]
+					date.setHours(hours)
+					date.setMinutes(minutes)
+				}else{
+					date.setHours(this.time.getHours())
+					date.setMinutes(this.time.getMinutes())
+				}
+				
+				return date
 			}
 		},
 		methods:{
@@ -131,7 +145,7 @@ export default{
 					location: this.location,
 					src: this.imageUrl,
 					description: this.description,
-					date: new Date()
+					date: this.subDate
 				}
 				this.$store.dispatch('createPage', pagesData)
 				this.$router.push('/page')
@@ -139,4 +153,4 @@ export default{
 		}
 
 	}
-</script>
+</script>                                                                                                                                                                             

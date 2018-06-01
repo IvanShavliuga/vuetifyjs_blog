@@ -1,5 +1,7 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import * as firebase from 'firebase'
+
 
 Vue.use(Vuex);
 
@@ -9,7 +11,7 @@ export const store = new Vuex.Store({
           {
             src: 'https://vuetifyjs.com/static/doc-images/carousel/squirrel.jpg', 
             id: '1',
-            date: '10-12-18',
+            date: new Date(),
             location: 'fors',
             description: 'Lorem',
             title: "Title 1"
@@ -17,7 +19,7 @@ export const store = new Vuex.Store({
           {
             src: 'https://vuetifyjs.com/static/doc-images/carousel/sky.jpg', 
             id: 'sdgsdsd',
-            date: '11-12-18',
+            date: new Date(),
             location: 'fors',
             description: 'Lorem',
             title: "Title 2"
@@ -25,7 +27,7 @@ export const store = new Vuex.Store({
           {
             src: 'https://vuetifyjs.com/static/doc-images/carousel/bird.jpg', 
             id: 'rerghafdh',
-            date: '12-12-18',
+            date: new Date(),
             location: 'fors',
             description: 'Lorem',
             title: "Title 3"
@@ -33,7 +35,7 @@ export const store = new Vuex.Store({
           {
             src: 'https://vuetifyjs.com/static/doc-images/carousel/planet.jpg', 
             id: 'xhkjlkjkj',
-            date: '13-12-18',
+            date: new Date(),
             location: 'fors',
             description: 'Lorem',
             title: "Title 4"
@@ -49,6 +51,9 @@ export const store = new Vuex.Store({
 	mutations: {
 		createPage(state, payload){
 			state.loaderPages.push(payload)
+		},
+		setUser(state,payload){
+			state.user = payload
 		}
 	},
 	actions: {
@@ -59,10 +64,28 @@ export const store = new Vuex.Store({
 				src: payload.src,
 				description: payload.description,
 				date: payload.date,
-				id: 'xhkjlkjkj'
+				id: 'xhjhjh'
 			}
 			commit ('createPage', page)
+		},
+		singUserUp({commit}, payload){
+		firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password )
+				.then(
+					user => {
+						const newUser = {
+							id: user.uid,
+							registeredPages: []
+						}
+						commit('setUser', newUser)
+
+					}
+					)
+				.catch(
+					error =>{
+						console.log(error)
+					})
 		}
+
 	},
 	getters: {
 		loaderPages(state){

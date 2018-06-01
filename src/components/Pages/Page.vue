@@ -16,7 +16,7 @@
           					<div>
             						<h3 class="headline white--text mb-0">{{item.title}}</h3>
             						<div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-            						<div>{{item.date}}</div>
+            						<div>{{item.date | date}}</div>
           					</div>
         				</v-card-title>
         				<v-card-actions  class="text-xs-center ">
