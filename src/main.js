@@ -6,6 +6,8 @@ import router from './router'
 import {store} from './store/index.js'
 import * as firebase from 'firebase'
 import DateFilter from './filters/date.js'
+import AlertCmp from './components/Shared/Alert.vue'
+import './stylus/main.styl'
 import {
   Vuetify,
   VApp,
@@ -22,6 +24,8 @@ import {
   VTextField,
   VDatePicker,
   VTimePicker,
+  VAlert,
+  VProgressCircular,
   transitions
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
@@ -42,6 +46,8 @@ Vue.use(Vuetify, {
     VTextField,
     VDatePicker,
     VTimePicker,
+    VAlert,
+    VProgressCircular,
     transitions
   },
   theme: {
@@ -57,6 +63,7 @@ Vue.use(Vuetify, {
 
 Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
+Vue.component('app-alert', AlertCmp)
 
 /* eslint-disable no-new */
 new Vue({
@@ -70,9 +77,16 @@ new Vue({
     authDomain: 'vuejs-c67a5.firebaseapp.com',
     databaseURL: 'https://vuejs-c67a5.firebaseio.com',
     projectId: 'vuejs-c67a5',
-    storageBucket: ''
+    storageBucket: 'gs://vuejs-c67a5.appspot.com'
 
     })
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user){
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
+
+    this.$store.dispatch('loadPages')
 
   },
   template: '<App/>'

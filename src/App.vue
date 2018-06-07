@@ -12,6 +12,12 @@
           </v-list-tile-action>
           <v-list-tile-content>{{item.title}}</v-list-tile-content>
         </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action v-if='userIsAuth' @click='onLogout' >
+            <v-icon >exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>Logout</v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app dark  class="primary">
@@ -31,6 +37,11 @@
         <v-icon left>{{item.icon}}</v-icon>
       {{item.title}}
     </v-btn>
+    <v-btn flat v-if='userIsAuth' @click='onLogout' >
+
+        <v-icon left>exit_to_app</v-icon>
+      Logout
+    </v-btn>
     </v-toolbar-items>
   </v-toolbar>
   <main>
@@ -46,15 +57,32 @@
 export default {
   data () {
     return {
-      sideNav: false,
-      menuItems: [
-      {icon: 'supervisor_account', title: 'Link One', link: '/page'},
-      {icon: 'room', title: 'Link Two', link: '/page/new'},
-      {icon: 'person', title: 'Link Three', link: '/profile'},
+      sideNav: false
+    }
+  },
+  computed: {
+    menuItems() {
+      let menuItems= [
       {icon: 'face', title: 'Link Four', link: '/sigup'},
       {icon: 'lock_open', title: 'Link Five', link: '/sigin'}
-
       ]
+      if(this.userIsAuth){
+        menuItems= [
+        {icon: 'supervisor_account', title: 'Link One', link: '/page'},
+        {icon: 'room', title: 'Link Two', link: '/page/new'},
+        {icon: 'person', title: 'Link Three', link: '/profile'}
+        ]
+      }
+      return menuItems
+    },
+    userIsAuth() {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    }
+
+  },
+  methods: {
+    onLogout() {
+      this.$store.dispatch('logout')
     }
   }
 }

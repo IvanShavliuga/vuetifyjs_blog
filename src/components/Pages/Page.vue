@@ -6,7 +6,7 @@
 					<v-container >
 						<v-layout>
 							<v-flex xs5 sm4 md3>
-								<v-card-media :src="item.src" height="200px">
+								<v-card-media :src="item.imageUrl" height="200px">
 									
 								</v-card-media>
 							</v-flex>
@@ -15,7 +15,8 @@
 								<v-card-title primary-title>
           					<div>
             						<h3 class="headline white--text mb-0">{{item.title}}</h3>
-            						<div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
+            						<div>{{item.description}} 
+            						</div>
             						<div>{{item.date | date}}</div>
           					</div>
         				</v-card-title>

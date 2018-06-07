@@ -7,7 +7,7 @@
 						<h4 class="primary--text">{{items.title}}</h4>
 					</v-card-title>
 					<v-card-media 
-					:src="items.src" height="400px">
+					:src="items.imageUrl" height="400px">
 					</v-card-media>
 					<v-card-text>
 						<div class="info--text">{{items.date | date}}-{{items.location}}</div>

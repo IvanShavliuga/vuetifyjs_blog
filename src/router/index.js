@@ -7,6 +7,7 @@ import Profile from '@/components/User/Profile'
 import Sigin from '@/components/User/Sigin'
 import Sigup from '@/components/User/Sigup'
 import Pages from '@/components/Pages/Pages'
+import AutGard from './aut-gard.js'
 
 Vue.use(Router)
 
@@ -25,7 +26,8 @@ export default new Router({
     {
       path: '/page/new',
       name: 'CreatePage',
-      component: CreatePage
+      component: CreatePage,
+      beforeEnter: AutGard
     },
     {
       path: '/page/:id',
@@ -36,7 +38,8 @@ export default new Router({
     {
       path: '/profile',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      beforeEnter: AutGard
     },
     {
       path: '/sigin',
