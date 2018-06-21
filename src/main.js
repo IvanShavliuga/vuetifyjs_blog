@@ -7,6 +7,10 @@ import {store} from './store/index.js'
 import * as firebase from 'firebase'
 import DateFilter from './filters/date.js'
 import AlertCmp from './components/Shared/Alert.vue'
+import EditPageDetails from './components/Pages/Edit/EditPageDetails.vue'
+import EditPageDate from './components/Pages/Edit/EditPageDate.vue'
+import EditPageTime from './components/Pages/Edit/EditPageTime.vue'
+import RegisterDialog from './components/Pages/Registration/RegisterDialog.vue'
 import './stylus/main.styl'
 import {
   Vuetify,
@@ -26,6 +30,8 @@ import {
   VTimePicker,
   VAlert,
   VProgressCircular,
+  VDivider,
+  VDialog,
   transitions
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
@@ -48,6 +54,8 @@ Vue.use(Vuetify, {
     VTimePicker,
     VAlert,
     VProgressCircular,
+    VDivider,
+    VDialog,
     transitions
   },
   theme: {
@@ -64,6 +72,10 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
+Vue.component('app-edit-pages-details', EditPageDetails)
+Vue.component('app-edit-pages-date', EditPageDate)
+Vue.component('app-edit-pages-time', EditPageTime)
+Vue.component('app-page-register', RegisterDialog)
 
 /* eslint-disable no-new */
 new Vue({
@@ -71,23 +83,22 @@ new Vue({
   router,
   store,
   components: { App },
-  created(){
+  created () {
     firebase.initializeApp({
       apiKey: 'AIzaSyAH-2nTWol3i4W_JOV5oozm8ReKPBxDYf8',
-    authDomain: 'vuejs-c67a5.firebaseapp.com',
-    databaseURL: 'https://vuejs-c67a5.firebaseio.com',
-    projectId: 'vuejs-c67a5',
-    storageBucket: 'gs://vuejs-c67a5.appspot.com'
+      authDomain: 'vuejs-c67a5.firebaseapp.com',
+      databaseURL: 'https://vuejs-c67a5.firebaseio.com',
+      projectId: 'vuejs-c67a5',
+      storageBucket: 'gs://vuejs-c67a5.appspot.com'
 
     })
     firebase.auth().onAuthStateChanged((user) => {
-      if(user){
+      if (user) {
         this.$store.dispatch('autoSignIn', user)
       }
     })
 
     this.$store.dispatch('loadPages')
-
   },
   template: '<App/>'
 })
